@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dehla Pakad · Mindi</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="topbar">
+  <div>
+    <p class="eyebrow">TRICK-TAKING CARD GAME</p>
+    <h1>Dehla Pakad <span>· Mindi</span></h1>
+  </div>
+  <div class="top-actions">
+    <button id="rulesBtn" class="btn secondary">Rules</button>
+    <button id="newGameBtn" class="btn primary">New Game</button>
+  </div>
+</header>
+
+<main>
+  <section class="scoreboard" aria-label="Team scores">
+    <article class="score-card team-one">
+      <div class="score-top"><span class="team-dot"></span><span>TEAM 1</span></div>
+      <div class="team-players">You + Riya</div>
+      <div class="score-number" id="score1">0</div>
+      <div class="score-caption">Dehle captured</div>
+      <div class="score-foot"><span id="tricks1">0</span> tricks captured</div>
+    </article>
+    <article class="score-card team-two">
+      <div class="score-top"><span class="team-dot"></span><span>TEAM 2</span></div>
+      <div class="team-players">Arjun + Karan</div>
+      <div class="score-number" id="score2">0</div>
+      <div class="score-caption">Dehle captured</div>
+      <div class="score-foot"><span id="tricks2">0</span> tricks captured</div>
+    </article>
+  </section>
+
+  <section class="game-layout">
+    <div class="table" id="table">
+      <div class="trump-badge" id="trumpBadge">TRUMP <strong>Not revealed</strong></div>
+
+      <div class="player-seat seat-top">
+        <div class="player-name"><span class="avatar">A</span><span>Arjun</span></div>
+        <div class="opponent-cards" id="back1"></div>
+      </div>
+      <div class="player-seat seat-left">
+        <div class="player-name"><span class="avatar">R</span><span>Riya</span></div>
+        <div class="opponent-cards vertical" id="back2"></div>
+      </div>
+      <div class="player-seat seat-right">
+        <div class="player-name"><span class="avatar">K</span><span>Karan</span></div>
+        <div class="opponent-cards vertical" id="back3"></div>
+      </div>
+
+      <div class="felt">
+        <div class="table-hint" id="tableHint">Your turn — choose a card</div>
+        <div class="trick-grid">
+          <div class="trick-slot slot-top" id="slot1"></div>
+          <div class="trick-slot slot-left" id="slot2"></div>
+          <div class="trick-slot slot-right" id="slot3"></div>
+          <div class="trick-slot slot-bottom" id="slot0"></div>
+        </div>
+      </div>
+
+      <div class="capture-zone capture-team-1" id="capture1">
+        <div class="capture-zone-head"><span>TEAM 1 CAPTURE PILE</span><b id="pileCount1">0 cards</b></div>
+        <div class="capture-members">You + Riya</div>
+        <div class="mini-pile" id="pile1"></div>
+        <div class="pile-stats"><span>Dehle <b id="pileDehle1">0</b></span><span>Tricks <b id="pileTricks1">0</b></span></div>
+      </div>
+      <div class="capture-zone capture-team-2" id="capture2">
+        <div class="capture-zone-head"><span>TEAM 2 CAPTURE PILE</span><b id="pileCount2">0 cards</b></div>
+        <div class="capture-members">Arjun + Karan</div>
+        <div class="mini-pile" id="pile2"></div>
+        <div class="pile-stats"><span>Dehle <b id="pileDehle2">0</b></span><span>Tricks <b id="pileTricks2">0</b></span></div>
+      </div>
+
+      <div class="trick-announcement" id="trickAnnouncement" aria-live="polite">
+        <div class="winner-banner" id="winnerBanner">TEAM 1 CAPTURED THIS TRICK</div>
+        <div class="winner-detail" id="winnerDetail"></div>
+        <div class="cut-panel">
+          <div class="panel-label">CUT</div>
+          <div class="panel-value" id="cutValue">No cut</div>
+          <div class="panel-note" id="cutNote">Trump cut is shown here separately</div>
+        </div>
+        <div class="dehla-panel">
+          <div class="panel-label">DEHLA CAPTURED</div>
+          <div class="panel-value" id="dehlaValue">None</div>
+        </div>
+      </div>
+    </div>
+
+    <aside class="side-panel">
+      <div class="panel-heading">
+        <div><p class="eyebrow">ROUND STATUS</p><h2>Table activity</h2></div>
+        <span class="round-pill" id="roundCount">Trick 1 / 13</span>
+      </div>
+      <div class="current-status" id="currentStatus">Your turn. Select a card from your hand.</div>
+      <div class="log-heading">TRICK HISTORY</div>
+      <ol class="game-log" id="gameLog"><li>Cards dealt. You lead the first trick if you are selected to start.</li></ol>
+      <div class="hand-heading"><div><p class="eyebrow">YOUR HAND</p><h2>Choose a card</h2></div><span id="handCount">13 cards</span></div>
+      <div class="hand" id="hand"></div>
+      <p class="hand-help" id="handHelp">Follow the suit led when you can. Your legal cards are highlighted.</p>
+    </aside>
+  </section>
+</main>
+
+<dialog id="rulesDialog">
+  <div class="dialog-head"><h2>How to play Dehla Pakad</h2><button id="closeRules" class="close-btn" aria-label="Close rules">×</button></div>
+  <div class="rules-copy">
+    <p><b>Teams:</b> Team 1 is You + Riya. Team 2 is Arjun + Karan.</p>
+    <p><b>Play:</b> Each player plays one card per trick. Follow the suit led if you have it.</p>
+    <p><b>Cut / trump:</b> When a player cannot follow suit for the first time, a trump suit is revealed (different from the lead suit). A trump card can cut the trick. The winning card and any cut are shown in a separate panel after each trick.</p>
+    <p><b>Dehle:</b> Each captured 10 is one Dehla point. Captured 10s are highlighted in the team's capture pile.</p>
+    <p><b>Round:</b> 13 tricks are played. The team with more Dehle wins. The final score is shown as Team 1 Wins X–Y or Team 2 Wins Y–X.</p>
+  </div>
+</dialog>
+<div id="toast" class="toast" role="status"></div>
+<script src="game.js"></script>
+</body>
+</html>
